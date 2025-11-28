@@ -1,0 +1,1047 @@
+
+Version - help to track the changes happening to a software/code over period of the time
+Version control system - souce code managment 
+help us to track the changes we making software, help us look at the version history 
+Type of VCS 
+Local VCS - SCCS
+Centrailize VCS
+GIT/GITHUB/Gitbucket 
+
+Local VCS 
+Disadvantage - files store locally, what happening if devloper maching crack - we can loose the data. 
+version tracking happened only local system. 
+collabration - multipal devloper not possible 
+
+Centralize Version control system 
+keep centralize server (Remote Server) - version tracking happening only remote server 
+collabration problem is resolved 
+If we loose remote server, we could loose data - loose all the version tracking / Dev are dependant on the network 
+
+
+GIT - Distributed Version Control System 
+Git Client - Local VCS - Version tracking happen on localy and remotely. 
+push to remote when needed. Dev not dependant on network to create version tracking. 
+
+
+GitHub - Microsoft 
+open source  - Free Account 
+Paid version -- company
+end number of public / private repository
+ 
+GitHub-connection
+https - protocol default 
+ssh - 
+
+to setup ssh authetication in Git.
+first generate the pubic and private key.
+ssh-keygen -t ed25519 -C "rahoolnew@gmail"
+cd ~.ssh/ed25519.pub --> copy this public key
+go to GitHub --> setting --> ssh and gpg key and add the key. 
+ssh -T git@github.com - test connection 
+
+callabrator - if i want to invite to collaborate someone my repository then need to send the invitation.
+
+
+
+
+git --version
+what is version control
+version control is a system that document changes to a file or set of files. it allow multipal user to manage multipal user to manage multipal revison
+of the same unit of information 
+
+There are three areas
+Local working directory  <-->  staging working area  <--> local repository
+
+
+global level address configuration
+git config --global --edit
+to reset user info 
+git commit --amend --reset-author 
+
+---------------------------------------------------------------------------------------------------------------
+git init - (to initilize git area)
+git config --global user.name rahul 
+git config --global user.email rahoolnew@gmail.com
+
+touch code (create a file - untracked file)
+if you want to remove untracked file
+git clean -n --> dry run
+git clean -f --> to delete that file
+git rm --cache filenaem
+---------------------------------------------------------------------------------------------------------------
+git ignore - vi .gitignore --> *.txt / *.java
+---------------------------------------------------------------------------------------------------------------
+
+staging area
+git add code
+git status / git diff / git diff filename 
+git reset - unstage the changes
+get checkout -- filename --> to get back from staging area.
+git rm --cache rahul.txt -- unstage the change.
+git rm -f code --> to remove file from git memory
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+git reset is destractive command, with help of this command you cannot bring back the changes. dengeros command to run in production environment.
+it will not create a commit id when you exuctue the git reset command. when you reset it will undo the changes permanently.
+--hard permanetly deleted from git memory, there is no way to bring back the changes.
+--> permanetly deleted the undo changes.
+--soft it will take you in staging area. 
+git reset --soft 3891709cf9ee02fd925f8f11083c251622eaa5b6 ---> it will take back you in staging area.
+git reset --soft HEAD~
+
+-------------------------------------------------------------------------------------------------------------
+by using revert you can undo the changes and you can bring back the changes. git rever it safe command because it will create commit id and with 
+help of the commit id you can bring back the changes.
+
+git revert
+create first file - commit it
+add 2nd line in first file --> commit it
+rever the commit in 2nd line file - git revert 0964bf1dc49282ad0c9c0da49303265ddcba13cf
+undo the change - use latest commit undo the changes - git revert 0964bf1dc49282ad0c9c0da49303265ddcba13cf
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+git stash - will be done if change is in stage. 
+if you want to hold the change in stage then you chan use git stash. 
+git stash
+git stash apply 
+
+if you want to move file from one branch to another branch or if you want hold the change for temporary period then you can use git stash
+stash can be applicable staging area only.
+lets assume if you create any file and you wan to hold the changes then run the below command
+git stash -u ----> to hold the changes
+go to another branch and check the stash changes --> git stash list
+if you want apply the change --> git stash apply stashid.
+if you want to drop the changes --> git stash drop shashid. (to drop the changes)
+
+-------------------------------------------------------------------------------------------------------------
+want to remember commit id then you can add tag.
+git tag -a "version1" -m "release v1.0" e698a99be874 --> to tag commite id. / alias for commite id.
+one tag assocaite only one commit.
+git tag --> to check how many tags added in version
+git show version1 --> to get more info about commit id.
+to delete the Tags
+git tag -d v1
+-----------------------------------------------------------------------------------------------------------
+if you want restore any specific version file. 
+git checkout e698a99be874ea12cf9bebd26a9bfbfd4c69f050 rahul
+---------------------------------------------------------------------------------------------------------------
+commiting area 
+git commit -m "first commit"
+if you want to modify the commit massage
+git commit --amend -m "nice"
+rm -rf filename
+git restore filename (it will restore from local repository)
+---------------------------------------------------------------------------------------------------------------
+git log 
+git log --oneline --decorate --graph --all 
+git log --graph --oneline --decorate
+git log -n 2 --> two times logs show
+git show commiteid
+---------------------------------------------------------------------------------------------------------------
+git branch "branch_name" 
+git branch -m main --> to change the branch
+git switch branch-name --> to change the branch
+git checkout branch --> to switch the branch
+git branch -d "branch name" --> to delete the branch
+git branch -D "branch name" --> to delete the branch
+git fetch origin rahul:rahul --> this will create a local branch using the remote branch.
+how to delete the branch remotely --> git push origin --delete "branch name"
+git push origin --delete F1
+chaid branch cannot delete any branch
+we should be in master branch if we want to detete any other branches
+
+git remote add origin https://github.com/shinrah/test.git --> add remote repository
+git remote set-url origin https://github.com/shinrah/test.git --> to change remote repository
+git remote -v --> to verify if reposiory added or not.
+git push -u origin main --> to connect remote repository . password auth disable so we need to use token
+git push -u orgion --all --> to push all local branched to remote repository. 
+git push -u origin main --tag ---> you can add tag as well on remote repository
+git config --global credential.helper store ---> to store the credential. 
+git-username and passwod --> go to git account - setting - devsettig - generate token (classic)
+git clone URL --> getting exact code on GitHUB.
+git pull --> if you want to sync remote changes to your local repository then you can go for git pull.
+download only changes / latest update made by devloper in existing repo.  
+git fetch --> git fetch really only downloads new data from a remote repository - but it doesn't integrate any of this new data into your working files. Fetch is great for getting a fresh view on all the things that happened in a remote repository
+---------------------------------------------------------------------------------------------------------------
+Merge
+1. fast forward merge - if both branch has same version that is called fast forward merge.
+
+Master Branch
+file1.txt 
+branch1 - from master 
+file1.txt
+branch1-file1.txt 
+merge branch ---> fast forward merge
+
+Master Brach
+file1.txt
+branch1-file1.txt 
+branch1 (already merge)
+file1.txt
+branch1-file1.txt
+branch2 - from master
+branch2-file1.txt 
+switch branch - master
+modify file1.txt
+merge branch2 in master --> it will ask why do you want to merge. you need to provide comment - that is called recursive merge
+
+
+2. recursive merge --> automatically fix the merge 
+3. Merge conflict --> Git wont fix the merge, we need to fix the merge automatically.
+
+---------------------------------------------------------------------------------------------------------------
+Git Stash
+git stashing is a way of creating checkpoint for non-commited changes it saves all the changes to temporary location so the user can perform othert
+task such as switching the branch reverting etc these changes can then be applied there.
+
+
+
+Git Cherrypick
+
+cherry picking in git means to choose commit from one branch and apply to another branch 
+this is contrast with other way such as merge and rebase which normally apply many commit into another branch 
+make sure your on the branch you want to apply the commit then use below command 
+
+create a two branch devlop1 and devlop2 on locally and remotely
+create two files in devlop1 branch
+now if you want to send one commit to devlop2 branch 
+git log - check commit which commit you want to carry on devlop2
+switch to devlop2 branch
+git cherry-pick 4422ed88819a776820a7a1572a03f554294520d8
+
+---------------------------------------------------------------------------------------------------------------
+
+
+
+
+Branching stategy - small project --> main branch
+complex project - main production ready - main java 
+Food delivery application - featcher brach 
+collabrtor --> approval the request
+branch --> whenever create new branch all file copied in once time. this happened only new creation of the branch. after that branches will be acting as independant. 
+
+
+
+git revert - helps to undo the changes on existing commit.
+undo the chage -> git revert 4f9b463a6ed280f856502500bbd01c528adf2948
+bring back the changes -> git revert 4f9b463a6ed280f856502500bbd01c528adf2948 
+revert - bring back the changes but reset - you cannot bring back the changes. 
+git reset --hard 3f3adea9d1b9555a472ae09c28127dcb784367a0 --> you cannot bring back the changes. 
+
+
+---------------------------------------------------------
+rebase - merge --> similar 
+merge --> commite id created / rebase --> No commite id created. for clean history. do not use in real time 
+devsecops - cybersecuity 
+
+fork github - fork like a clone / it is copy from my account to your account (fork option is enable only GitHub)
+
+
+if you have accidantly delete the file that was commited to your git repository what is the best way to restore
+git checkout e698a99be874ea12cf9bebd26a9bfbfd4c69f050 rahul
+
+what is git stash
+Git stash is a way to tomporary save changes that you are not ready to commit so that you can work on differant branch or pull in changes from another
+repository. stashing your changes to create new stash object that store your changes you can apply the stash later using the git stash apply 
+
+Git cherry-pick is a command that allow you to apply specific commit from one branch to another branch.
+this is useful when you want to apply a bugfix or feacher from one branch to another branch without merging the entire branch. the cherry-picked commit
+so it will have new commit id. 
+you have made a commit to a branch but you want to move it to diff branch what is the best way to do this
+
+listed branches merged into master ---> git branch --merged main
+how to delete the branch locally --> git branch -d prashant
+
+git remote add --> just create a entry in configuration file, it wont take space, it more like pointer 
+git clone --> will physically download the file into your computer 
+
+ git stash  -u
+git stash list
+git stash pop
+
+[root@master project1]# git annotate AAROHI
+27532d17        (Rahul Shinde   2023-08-23 17:07:17 +0530       1)Hi Rahi
+27532d17        (Rahul Shinde   2023-08-23 17:07:17 +0530       2)your my best daughter
+[root@master project1]#
+
+what command helps us know the list of branches merged to master
+git branch --merged master
+
+
+#########################################################################
+(assignment1)
+
+2  mkdir assign1
+    3  ls
+    4  cd assign1
+    5  git init
+    6  nano code.txt
+    7  ls
+    8  nano log.txt
+    9  ls
+   10  nano output.txt
+   11  ls
+   12  git status
+   13  git add code.txt
+   14  git status
+   15  git add output.txt
+   16  git status
+   17  git commit -m "first commit"
+   18  git branch
+   19  git remote add origin https://github.com/ritikdevoper123/assignment1.git
+   20  git push origin master
+---------------------------------------------------------
+(assignment2)
+
+ mkdir assign2
+   25  ls
+   26  cd assign2
+   27  git init
+   28  nano feature1.txt
+   29  ls
+   30  nano feature2.txt
+   31  ls
+   32  git status
+   33  git add .
+   34  git status
+   35  git commit -m "second commit"
+   36  git branch
+   37  git branch develop
+   38  git branch
+   39  git branch feature1
+   40  git branch feature2
+   41  git branch
+   42  git checkout develop
+   43  git branch
+   44  nano develop.txt
+   45  git status
+   46  git stash -u
+   47  git branch
+   48  git checkout feature1
+   49  git branch
+   50  nano new.txt
+   51  git status
+   52  git add .
+   53  git commit -m "hello"
+   54  git branch
+   55  git checkout develop
+   56  git branch
+   57  git stash pop
+   58  git add .
+   59  git commit -m "third commit"
+-------------------------------------------------------------------
+(assignment 3)
+
+ mkdir assign3
+   64  cd assign3
+   65  git init
+   66  nano main.txt
+   67  git status
+   68  git add .
+   69  git commit -m "hello"
+   70  git branch
+   71  git branch develop
+   72  git branch
+   73  git branch f1
+   74  git branch f2
+   75  git branch
+   76  git checkout develop
+   77  nano develop.txt
+   78  ls
+   79  git add .
+   80  git commit -m "hello"
+   81  git branch
+   82  git checkout f1
+   83  touch f1.txt
+   84  ls
+   85  git status
+   86  git add .
+   87  git commit -m "hi"
+   88  git branch
+   89  git checkout f2
+   90  touch f2.txt
+   91  git status
+   92  git add .
+   93  git commit -m "hi"
+   94  git branch
+   95  git remote add origin https://github.com/ritikdevoper123/assignment3.git
+   96  git push origin --all
+   97  git branch
+   98  git branch -D f2
+   99  git checkout master
+  100  git branch
+  101  git branch -D f2
+  102  git branch
+  103  git push origin --delete f2
+----------------------------------------------------
+(assignment 4)
+
+ mkdir assign4
+  109  ls
+  110  cd assign4
+  111  git init
+  112  nano master.txt
+  113  git status
+  114  git add .
+  115  git commit -m "fourth commit"
+  116  git branch
+  117  git branch public1
+  118  git branch
+  119  git branch public2
+  120  git branch private
+  121  git branch
+  122  git checkout public1
+  123  git branch
+  124  nano public1.txt
+  125  git add .
+  126  git commit -m "hi"
+  127  git checkout master
+  128  git branch
+  129  ls
+  130  git checkout public1
+  131  git branch
+  132  ls
+  133  git checkout master
+  134  ls
+  135  git merge public1
+  136  ls
+  137  git branch
+  138  git merge public2
+  139  git branch
+  140  git checkout private
+  141  ls
+  142  cat master.txt
+  143  nano master.txt
+  144  git status
+  145  git add .
+  146  git commit -m "hi"
+  147  cat master.txt
+  148  git branch
+  149  git checkout public1
+  150  ls
+  151  cat master.txt
+  152  git merge private
+  153  cat master.txt
+  154  git checkout public2
+  155  cat master.txt
+  156  git merge private
+  157  cat master.txt
+  158  git branch
+  159  git checkout master
+  160  ls
+  161  cat master.txt
+  162  git merge private
+  163  cat master.txt
+  164  ls
+  165  cat master.txt
+  166  ls
+  167  git checkout private
+  168  git merge master
+
+Q1. What is Git, and how is it different from SVN?
+
+Answer:
+Git is an open-source distributed version control system that tracks and manages source code changes.
+Unlike SVN (centralized VCS), Git allows every developer to have a local repository with full history.
+This enables offline work, faster operations, and less dependency on the remote server.
+
+Example:
+
+SVN needs a connection to the central server to commit.
+Git commits locally first and can push later when online.
+
+
+Q2. What is the difference between git pull and git fetch?
+
+Answer:
+
+git fetch downloads the latest changes from the remote repo but does not merge them into your local branch.
+
+git pull performs both: fetch + merge, updating your working branch automatically.
+
+Use Case:
+Use fetch when you want to review changes first, and pull when you’re ready to update your branch.
+
+
+Q3. How can you change the last commit message in Git?
+git commit --amend -m "New corrected commit message"
+
+
+Q4. How do you undo the last commit but keep your changes in the working directory?
+git reset --soft HEAD~1
+
+
+
+How do you create a tag in Git, and what is the difference between a lightweight tag and an annotated tag?
+
+Level 1 — Git Fundamentals (30 Questions + Answers)
+Q1. What is Git?
+
+Git is a distributed version-control system that tracks code changes and lets multiple developers collaborate.
+Each developer has a full local copy of the repository, making work possible even without a network connection.
+
+Example:
+
+git init
+
+
+Creates a new Git repository in the current directory.
+
+Q2. Difference between Git and GitHub?
+
+Git → command-line tool for version control.
+
+GitHub → cloud service that hosts Git repositories and adds features like pull requests and issue tracking.
+
+Q3. Difference between clone and fork?
+
+Clone: make a local copy of a repository.
+
+Fork: duplicate another user’s repo under your GitHub account to propose changes independently.
+
+Q4. What does git add do?
+
+Moves modified files from the working directory to the staging area.
+
+git add file1.js
+git add .
+
+Q5. git commit vs git push
+
+git commit → records changes locally.
+
+git push → sends committed changes to a remote branch.
+
+Q6. Purpose of .gitignore
+
+Lists files/folders Git should skip—build artifacts, logs, credentials, etc.
+Example pattern:
+
+node_modules/
+*.log
+.env
+
+Q7. How to check repository status?
+git status
+
+
+Shows staged, unstaged, and untracked files.
+
+Q8. git diff usage
+
+Displays line-by-line changes between files, commits, or branches.
+
+git diff
+git diff main..feature
+
+Q9. git init vs git clone
+
+init: start a brand-new repo.
+
+clone: copy an existing remote repo.
+
+Q10. What is HEAD in Git?
+
+HEAD is a pointer to your current commit (usually the latest commit of your checked-out branch).
+
+Q11. How to create a branch?
+git branch feature/login
+git checkout feature/login
+# or one-line
+git checkout -b feature/login
+
+Q12. List branches and switch between them
+git branch
+git switch devlop
+
+Q13. Delete a branch
+
+Local:
+
+git branch -d feature/login
+
+
+Remote:
+
+git push origin --delete feature/login
+
+Q14. View commit history
+git log --oneline --graph --decorate
+
+Q15. Undo last commit but keep changes
+git reset --soft HEAD~1
+
+
+Moves HEAD back one commit but keeps modifications staged.
+
+Q16. Undo unstaged file changes
+git checkout -- filename
+
+Q17. Remove file from staging area but not from disk
+git reset filename
+
+Q18. Delete untracked files
+git clean -f
+
+
+Add -d to remove directories.
+
+Q19. Difference between working directory, staging area, and repository
+Area	Description
+Working Directory	Your local files
+Staging Area	Snapshot prepared for commit
+Repository	Permanent commit history
+Q20. Rename a branch
+git branch -m old-name new-name
+
+Q21. Check remote URLs
+git remote -v
+
+Q22. Add a remote repository
+git remote add origin https://github.com/user/repo.git
+
+Q23. Pull updates from remote
+git pull origin main
+
+Q24. Push branch to remote for first time
+git push -u origin feature/login
+
+
+The -u flag sets upstream tracking.
+
+Q25. Remove a remote
+git remote remove origin
+
+Q26. View file history
+git log -- filename
+
+Q27. Show specific commit details
+git show <commit_sha>
+
+Q28. How to tag a release?
+git tag v1.0
+git push origin v1.0
+
+Q29. Difference between lightweight and annotated tags
+
+Lightweight: pointer to a commit.
+
+Annotated: includes metadata (message, author, date).
+
+Q30. How to restore a deleted file from history?
+git checkout HEAD~1 -- deleted_file.txt
+
+Level 2 — Intermediate Git (35 Questions + Answers)
+Q31. What is a branch in Git?
+
+A branch is an independent line of development that lets you isolate work from the main codebase.
+
+Commands:
+
+git branch feature/login
+git checkout feature/login
+
+Q32. How does branching actually work?
+
+A branch is just a pointer to a commit (a reference). When you commit, the branch pointer moves forward to the new commit.
+
+Q33. How do you merge one branch into another?
+
+Switch to the target branch and run:
+
+git checkout main
+git merge feature/login
+
+
+If there are no conflicting changes, Git performs a fast-forward merge.
+
+Q34. What is a fast-forward merge?
+
+If the target branch has not diverged, Git simply moves its pointer forward—no merge commit is created.
+
+Q35. What is a three-way merge?
+
+When both branches diverge, Git creates a new merge commit that combines the two histories using the common ancestor.
+
+Q36. What are merge conflicts?
+
+Conflicts occur when the same line(s) are modified in both branches. Git marks them with <<<<<<<, =======, and >>>>>>>.
+Resolve, stage, and then complete the merge:
+
+git add .
+git merge --continue
+
+Q37. How do you abort a merge?
+git merge --abort
+
+
+Restores the branch to the state before the merge started.
+
+Q38. What is rebasing?
+
+Rebasing re-applies commits on top of another base branch, creating a linear history.
+
+git checkout feature
+git rebase main
+
+Q39. When should you use rebase vs merge?
+
+Rebase before pushing, to keep local history clean.
+
+Merge for shared branches, to preserve full context.
+
+Q40. What is an interactive rebase?
+
+Lets you modify commit history (reword, squash, drop):
+
+git rebase -i HEAD~5
+
+Q41. How do you squash commits?
+
+During an interactive rebase, change subsequent pick to squash and save. The commits combine into one.
+
+Q42. How do you abort a rebase?
+git rebase --abort
+
+Q43. What is git stash used for?
+
+Temporarily saves uncommitted work so you can switch branches safely.
+
+git stash
+git stash pop
+
+Q44. How do you list or apply specific stashes?
+git stash list
+git stash apply stash@{2}
+
+Q45. How do you delete stashes?
+git stash drop stash@{0}
+git stash clear
+
+Q46. What does git revert do?
+
+Creates a new commit that reverses a specific earlier commit—safe for shared branches.
+
+git revert <commit_sha>
+
+Q47. How does git reset differ from git revert?
+
+Reset: moves HEAD backward, can erase commits (unsafe).
+
+Revert: adds a new commit that undoes previous changes (safe).
+
+Q48. What is the difference between git reset --soft, --mixed, and --hard?
+Mode	Effect
+soft	Keep staged + working changes
+mixed	Unstage but keep in working dir
+hard	Discard all changes completely
+Q49. What is git reflog and how do you use it?
+
+Shows every movement of HEAD; used to recover lost commits.
+
+git reflog
+git branch recover <sha>
+
+Q50. How do you restore a lost commit using reflog?
+
+Find the commit hash in reflog and create a branch:
+
+git branch restore <sha>
+
+Q51. What is git cherry-pick?
+
+Applies a specific commit from another branch onto the current branch.
+
+git cherry-pick <sha>
+
+Q52. How do you cherry-pick multiple commits?
+git cherry-pick <sha1> <sha2> <sha3>
+
+Q53. What happens if a cherry-pick causes conflicts?
+
+Fix conflicts, then:
+
+git add .
+git cherry-pick --continue
+
+
+To cancel:
+
+git cherry-pick --abort
+
+Q54. How do you see which branch a commit belongs to?
+git branch --contains <sha>
+
+Q55. How do you rename or move branches?
+git branch -m old new
+git push origin :old new
+
+Q56. How do you track a remote branch locally?
+git checkout --track origin/feature
+
+Q57. How do you delete remote branches?
+git push origin --delete feature
+
+Q58. What is an upstream branch?
+
+The remote branch that your local branch pushes/pulls from.
+Set it with:
+
+git push -u origin feature
+
+Q59. How do you see which remote branch your local branch tracks?
+git branch -vv
+
+Q60. How do you clean merged local branches?
+git branch --merged | xargs git branch -d
+
+Q61. How do you temporarily test another commit or tag?
+
+Checkout that commit directly:
+
+git checkout <sha>
+
+
+(puts you in a detached HEAD state)
+
+Q62. How do you get back from detached HEAD?
+git checkout main
+
+Q63. How do you create and apply patches?
+git format-patch -1 <sha>
+git apply <patchfile.patch>
+
+Q64. How do you compare two branches?
+git diff main..devlop
+
+Q65. How do you find commits containing a specific word?
+git log -S"keyword"
+
+Q66. How do you amend the last commit?
+git commit --amend
+
+
+Allows you to edit the message or include additional staged changes.
+
+Q67. How do you sign your commits?
+git commit -S -m "message"
+
+
+Requires configured GPG keys.
+
+Q68. How do you revert multiple commits?
+git revert <oldest_sha>^..<newest_sha>
+
+Q69. How do you handle conflicts after a rebase?
+
+Resolve files manually →
+
+git add .
+git rebase --continue
+
+
+or to abandon:
+
+git rebase --abort
+
+Q70. How do you see the graph of commits?
+git log --oneline --graph --decorate --all
+
+
+Q71. How do you recover a commit lost after git reset --hard?
+
+Use the reflog to find its SHA and re-create a branch:
+
+git reflog  
+git branch recover <sha>
+
+Q72. What is git reflog internally tracking?
+
+It records every movement of HEAD and branch pointers, even those removed by reset or rebase. It stores entries in .git/logs/HEAD.
+
+Q73. How do you undo a merge commit safely on a shared branch?
+git revert -m 1 <merge_sha>
+
+
+-m 1 keeps the first parent (main branch) and removes merged changes.
+
+Q74. What happens if you run git reset --hard HEAD~1 and push?
+
+It rewrites history locally and will force divergence with remote; you must use git push --force which can delete others’ work—never do this on shared branches.
+
+Q75. How to recover a deleted branch that was never pushed?
+git reflog  
+git branch recovered <sha>
+
+
+If missing:
+
+git fsck --lost-found  
+git show <sha>
+
+Q76. What is git fsck?
+
+It verifies integrity of objects and lists dangling (commits, trees, tags) not referenced by any branch.
+
+Q77. How do you inspect a dangling commit?
+git show <dangling_sha>
+
+Q78. How do you recover dangling commits into a branch?
+git branch recovered <sha>  
+git checkout recovered
+
+Q79. What is a detached HEAD state?
+
+When you checkout a specific commit instead of a branch; new commits won’t belong to any branch.
+
+Q80. How to fix detached HEAD and preserve work?
+git reflog  
+git branch temp <sha>  
+git checkout temp
+
+Q81. How to continue after a conflict in a cherry-pick?
+
+Resolve files, then run:
+
+git add .  
+git cherry-pick --continue
+
+Q82. How to abort a cherry-pick or rebase?
+git cherry-pick --abort  
+git rebase --abort
+
+Q83. How do you skip a commit during rebase?
+git rebase --skip
+
+Q84. How to find who changed a specific line in a file?
+git blame <file>
+
+Q85. How to find which commit introduced a bug?
+
+Use binary search with git bisect:
+
+git bisect start  
+git bisect bad  
+git bisect good <sha>
+
+Q86. How do you recover after accidental git merge --squash?
+
+Use git reflog to find the pre-squash commit and git reset --hard <sha> or recreate the branch from it.
+
+Q87. How to find unmerged commits between two branches?
+git log main..feature
+
+Q88. How to clean a repository completely and re-clone state?
+git fetch --all  
+git reset --hard origin/main
+
+Q89. How to rename tags or delete remote tags?
+git tag new old  
+git tag -d old  
+git push origin :new
+
+Q90. How to see changes introduced by a merge commit only?
+git diff <merge_sha>^1 <merge_sha>
+
+Q91. How to see all files changed in the last commit?
+git show --name-only
+
+Q92. How to recover after a failed rebase when the repo is inconsistent?
+
+Abort first:
+
+git rebase --abort
+
+
+Then restore original HEAD using git reflog.
+
+Q93. How to verify repository integrity?
+git fsck  
+git gc
+
+Q94. How to restore deleted files from previous commits?
+git checkout <commit_sha> -- file
+
+Q95. How to recover lost local changes after checkout?
+
+If you did not commit, check stash or reflog:
+
+git stash list  
+git reflog
+
+Q96. How to reset a remote branch to a specific commit?
+git push origin <commit_sha>:branch --force
+
+Q97. How to clean dangling objects and pack repository?
+git gc --prune=now --aggressive
+
+Q98. How to verify signed commits?
+git log --show-signature
+
+Q99. How to temporarily work with multiple checkouts of one repo?
+
+Use worktrees:
+
+git worktree add ../path branch
+
+Q100. How to configure Git hooks for automation?
+
+Scripts placed in .git/hooks/ (e.g., pre-commit, post-merge) run automatically.
+Example pre-commit:
+
+#!/bin/sh
+npm test || exit 1
+
+Bonus Section — Professional Git Practices
+GitFlow Model
+
+main → production releases
+
+develop → integration branch
+
+feature/ → per-feature work
+
+release/ → stabilization
+
+hotfix/ → urgent production fixes
+
+Commands:
+
+git flow init
+git flow feature start login
+
+Trunk-Based Development
+
+Single main branch, small frequent commits, feature flags.
+Simpler than GitFlow for CI/CD teams.
+
+Pro Tips
+
+💙 Avoid force-push on shared branches
+💙 Always use git revert instead of reset on remote branches
+💙 Use signed tags for releases
+💙 Run git gc monthly to optimize repositories
+
+Quick Reference Cheat Sheet
+Action	Command
+Init repo	git init
+Clone	git clone url
+Stage files	git add .
+Commit	git commit -m "msg"
+Push	git push origin branch
+Fetch updates	git fetch
+Pull updates	git pull
+Create branch	git checkout -b branch
+Merge	git merge branch
+Rebase	git rebase branch
+Revert commit	git revert sha
+Reset commit	git reset --hard sha
+View log	git log --oneline --graph
+Recover commit	git reflog + git branch name sha
+Stash work	git stash / git stash pop
+Delete branch	git branch -d branch
+Delete remote branch	git push origin --delete branch
+Compare branches	git diff main..dev
+Find author of line	git blame file
+Bisect bug	git bisect start
+	
