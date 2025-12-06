@@ -1,5 +1,5 @@
-git log --author="rahoolnew@gmail.com"
-git log --author="rahul"
+#git log --author="rahoolnew@gmail.com"
+#git log --author="rahul"
 
 Version - help to track the changes happening to a software/code over period of the time
 Version control system - souce code managment 
