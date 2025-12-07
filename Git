@@ -70,6 +70,10 @@ if you want to remove untracked file
 git clean -n --> dry run
 git clean -f --> to delete that file
 git rm --cache filenaem
+
+To recover the file
+# rm -rf rahul
+git checkout -- HEAD rahul
 ---------------------------------------------------------------------------------------------------------------
 git ignore - vi .gitignore --> *.txt / *.java
 ---------------------------------------------------------------------------------------------------------------
@@ -78,7 +82,7 @@ staging area
 git add code
 git status / git diff / git diff filename 
 git reset - unstage the changes
-get checkout -- filename --> to get back from staging area.
+ git restore --staged .  > to get back from staging area.
 git rm --cache rahul.txt -- unstage the change.
 git rm -f code --> to remove file from git memory
 
@@ -88,7 +92,6 @@ it will not create a commit id when you exuctue the git reset command. when you 
 --hard permanetly deleted from git memory, there is no way to bring back the changes.
 --> permanetly deleted the undo changes.
 --soft it will take you in staging area. 
-git reset --soft 3891709cf9ee02fd925f8f11083c251622eaa5b6 ---> it will take back you in staging area.
 git reset --soft HEAD~
 
 -------------------------------------------------------------------------------------------------------------
